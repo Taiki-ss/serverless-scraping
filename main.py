@@ -16,5 +16,6 @@ time.sleep(3)
 
 element = driver.find_element(By.XPATH, '//*[@id="tmp_contents"]/ul/li[1]/a')
 print(element.text)
+print('実行テスト')
 
 driver.quit()
