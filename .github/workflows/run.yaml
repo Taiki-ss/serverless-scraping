@@ -4,6 +4,9 @@ jobs:
   selenium:
     runs-on: ubuntu-latest
     steps:
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -12,6 +15,4 @@ jobs:
       - run: |
           pip install get-chrome-driver --upgrade
           pip install -r ./requirements.txt
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          apt install -y ./google-chrome-stable_current_amd64.deb
           python ./main.py
