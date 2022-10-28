@@ -5,14 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
-    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
           architecture: 'x64'
       - run: |
+          chrome --version
           pip install get-chrome-driver --upgrade
           pip install -r ./requirements.txt
           python ./main.py
