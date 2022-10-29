@@ -1,7 +1,7 @@
 name: selenium-github-actions
 on:
-  schedule: '30 * * * *'
-  - cron: 
+  schedule:
+    - cron: '0 * * * *'
 jobs:
   selenium:
     runs-on: ubuntu-latest
