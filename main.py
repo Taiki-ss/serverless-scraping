@@ -14,8 +14,8 @@ driver = webdriver.Chrome(service=s,options=options)
 driver.get('https://www.city.sasebo.lg.jp/kurashi/sumai/shie/boshu/index.html')
 time.sleep(3)
 
-element = driver.find_element(By.XPATH, '//*[@id="tmp_contents"]/ul/li[1]/a')
-print(element.text)
+element = driver.find_element(By.XPATH, '//*[@id="tmp_contents"]/ul')
+print(element.get_attribute('innerHTML'))
 print('実行テスト')
 
 driver.quit()
