@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+import sys
 import time
 import requests
 
@@ -11,9 +12,9 @@ import handle_data
 
 def main(line_apy_key=None):
 
-    # if line_apy_key is None:
-    #   print('not found line_apy_key')
-    #   return
+    if line_apy_key is None:
+        print('not found line_apy_key')
+        return
 
     options = Options()
     options.add_argument('--headless')
@@ -40,29 +41,29 @@ def main(line_apy_key=None):
     else:
         print('変更なし')
 
-    # LINE 通知コメントアウト
-    # ACCESS_TOKEN ='xxxxxxxxxxxxxxxx'
+    # LINE 通知
 
-    # URL = 'https://api.line.me/v2/bot/message/broadcast'
+    URL = 'https://api.line.me/v2/bot/message/broadcast'
 
-    # headers = {
-    #     'Authorization':'Bearer ' + ACCESS_TOKEN,
-    #     'Content-Type': "application/json"
-    # }
+    headers = {
+        'Authorization': 'Bearer ' + line_apy_key,
+        'Content-Type': "application/json"
+    }
 
-    # message = "メッセージテスト\n" + html
+    message = "【市営住宅募集ページ更新】\n\n" + text
 
-    # res = requests.post(URL,
-    #     headers=headers,
-    #     json={
-    #         "messages": [{
-    #             "type" : "text",
-    #             "text":message
-    #         }]
-    #     }).json()
+    res = requests.post(URL,
+                        headers=headers,
+                        json={
+                            "messages": [{
+                                "type": "text",
+                                "text": message
+                            }]
+                        }).json()
 
-    # print(res)
+    print(res)
 
 
 if __name__ == "__main__":
-    main()
+    args = sys.argv
+    main(args[1])
