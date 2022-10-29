@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 import time
 import requests
 
+import handle_data
+
 
 def main(line_apy_key=None):
 
@@ -22,14 +24,21 @@ def main(line_apy_key=None):
     driver.get('https://www.city.sasebo.lg.jp/kurashi/sumai/shie/boshu/index.html')
     time.sleep(3)
 
-    element = driver.find_element(By.XPATH, '//*[@id="tmp_contents"]/ul')
+    elements = driver.find_elements(
+        By.XPATH, '//*[@id="tmp_contents"]/ul/li/a')
 
-    html = element.get_attribute('innerHTML')
+    text = ''
 
-    print(element.get_attribute('innerHTML'))
-    print('実行テスト')
+    for element in elements:
+        text += element.text + '\n' + element.get_attribute('href') + '\n'
 
     driver.quit()
+    print('スクレイピング終了')
+
+    if handle_data.handle_data(text):
+        print('変更あり！')
+    else:
+        print('変更なし')
 
     # LINE 通知コメントアウト
     # ACCESS_TOKEN ='xxxxxxxxxxxxxxxx'
