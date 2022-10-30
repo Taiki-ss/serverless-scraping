@@ -38,30 +38,29 @@ def main(line_apy_key=None):
 
     if handle_data.handle_data(text):
         print('変更あり！')
+        # LINE 通知
+
+        URL = 'https://api.line.me/v2/bot/message/broadcast'
+
+        headers = {
+            'Authorization': 'Bearer ' + line_apy_key,
+            'Content-Type': "application/json"
+        }
+
+        message = "【市営住宅募集ページ更新】\n\n" + text
+
+        res = requests.post(URL,
+                            headers=headers,
+                            json={
+                                "messages": [{
+                                    "type": "text",
+                                    "text": message
+                                }]
+                            }).json()
+
+        print(res)
     else:
         print('変更なし')
-
-    # LINE 通知
-
-    URL = 'https://api.line.me/v2/bot/message/broadcast'
-
-    headers = {
-        'Authorization': 'Bearer ' + line_apy_key,
-        'Content-Type': "application/json"
-    }
-
-    message = "【市営住宅募集ページ更新】\n\n" + text
-
-    res = requests.post(URL,
-                        headers=headers,
-                        json={
-                            "messages": [{
-                                "type": "text",
-                                "text": message
-                            }]
-                        }).json()
-
-    print(res)
 
 
 if __name__ == "__main__":
