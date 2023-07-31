@@ -14,7 +14,6 @@ jobs:
           architecture: 'x64'
       - run: |
           chrome --version
-          pip install get-chrome-driver --upgrade
           pip install -r ./requirements.txt
           python ./main.py ${{secrets.LINE_API_KEY}}
           git config user.name github-actions
